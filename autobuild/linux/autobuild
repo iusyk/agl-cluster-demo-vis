@@ -15,8 +15,19 @@
 # limitations under the License.
 
 THISFILE  := $(lastword $(MAKEFILE_LIST))
-BUILD_DIR := $(abspath $(dir $(THISFILE)/../../../../..)/build)
-DEST      := ${BUILD_DIR}/target
+BUILD_DIR := $(abspath $(dir $(THISFILE))/../..)
+
+BUILD_DIR = $(ROOT_DIR)/build
+BUILD_DIR_DEBUG = $(abspath $(BUILD_DIR)/../build-debug)
+BUILD_DIR_TEST = $(abspath $(BUILD_DIR)/../build-test)
+BUILD_DIR_COVERAGE = $(abspath $(BUILD_DIR)/../build-coverage)
+
+override OUTPUT_DIR = $(BUILD_DIR)
+# Final install directory for widgets
+DEST = $(OUTPUT_DIR)
+
+# Default build type for release/test builds
+BUILD_TYPE = RELEASE
 
 .PHONY: all clean distclean configure build package help update
 
@@ -33,7 +44,7 @@ help:
 	@echo "- package: output a widget file '*.wgt'"
 	@echo "- install: install in your ${CMAKE_INSTALL_DIR} directory"
 	@echo ""
-	@echo "Usage: ./conf.d/autobuild/agl/autobuild package DEST=${HOME}/opt"
+	@echo "Usage: ./autobuild/agl/autobuild package DEST=${HOME}/opt"
 	@echo "Don't use your build dir as DEST as wgt file is generated at this location"
 
 update: configure
