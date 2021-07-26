@@ -88,7 +88,7 @@ void VisClient::onError(QAbstractSocket::SocketError error)
 
 void VisClient::onTextMessageReceived(const QString &message)
 {
-    qDebug() << "Receive message:" << message;
+    //qDebug() << "Receive message:" << message;
 
     Q_EMIT VisClient::messageReceived(message);
 }
